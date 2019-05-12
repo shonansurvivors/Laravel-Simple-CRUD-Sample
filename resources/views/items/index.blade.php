@@ -12,7 +12,25 @@
           </div>
           <form id="filter" method="get">
             <div class="modal-body">
-              <!-- TODO:検索フォーム -->
+              <form method="GET" action="{{ route('index') }}" id="myform">
+                <div class="form-group">
+                  <label>名前</label>
+                  <input type="text" name="name" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="sex">性別</label>
+                  <select id="sex" name="sex" class="form-control">
+                    <option value="">---------</option>
+                    <option value="1">男性</option>
+                    <option value="2">女性</option>
+                    <option value="3">指定無し</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>備考</label>
+                  <textarea name="memo" class="form-control"></textarea>
+                </div>
+              </form>
             </div>
           </form>
           <div class="modal-footer">
@@ -34,7 +52,7 @@
 
     <div class="row" >
       <div class="col-12">
-        <!-- TODO:ページネーション -->
+        {{ $items->links() }}
       </div>
     </div>
 
