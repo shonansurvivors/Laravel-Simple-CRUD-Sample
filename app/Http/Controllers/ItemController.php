@@ -17,7 +17,31 @@ class ItemController extends Controller
      * @return Response
      */
     public function index(Request $request){
-        $items = Item::orderBy('created_at', 'desc')->get();
+
+        /* ローカルスコープを利用することとした為、コメントアウト
+        $query = Item::query();
+
+        if(isset($request->name)){
+            $query->where('name', 'like', '%'.$request->name.'%');
+        }
+
+        if(isset($request->sex)){
+            $query->where('sex', $request->sex);
+        }
+
+        if(isset($request->memo)){
+            $query->where('memo', 'like', '%'.$request->memo.'%');
+        }
+
+        $items = $query->orderBy('created_at', 'desc')->get();
+        */
+
+        $items = Item::nameFilter($request->name)
+            ->sexFilter($request->sex)
+            ->memoFilter($request->memo)
+            ->orderBy('created_at', 'desc')
+            ->paginate(3)
+            ->appends($request->all());
 
         return view('items.index', [
             'items' => $items
